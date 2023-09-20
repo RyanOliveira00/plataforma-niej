@@ -1,5 +1,15 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { RecordLayout } from "@/components/layouts/RecordLayout";
 
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -74,22 +84,43 @@ export default function Medicina() {
             </button>
           </div>
 
-          <button className="flex items-center gap-2 self-end text-sm text-gray-400 transition-colors hover:text-gray-600 focus:outline-none">
-            <PlusIcon className="h-6 w-6" />
-            Criar
-          </button>
-
           <div className="flex flex-col gap-4 overflow-y-auto">
             {
               {
                 anamnese: medical_appointments.anamnese.map((anamnese) => (
-                  <div
-                    key={anamnese.date}
-                    className="flex cursor-pointer items-center justify-between rounded-md bg-gray-300 px-4 py-2 shadow-sm transition-all hover:bg-gray-400 hover:shadow-lg"
-                  >
-                    <span className="text-sm">{anamnese.date}</span>
-                    <ChevronRightIcon className="h-6 w-6" />
-                  </div>
+                  <>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <button className="flex items-center gap-2 self-end text-sm text-gray-400 transition-colors hover:text-gray-600 focus:outline-none">
+                          <PlusIcon className="h-6 w-6" />
+                          Criar
+                        </button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[425px]">
+                        <DialogHeader>
+                          <DialogTitle>Escolha a ficha de anamnese</DialogTitle>
+                        </DialogHeader>
+                        <Combobox />
+
+                        <DialogFooter>
+                          <Button type="submit">Criar</Button>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
+
+                    <div
+                      key={anamnese.date}
+                      className="flex cursor-pointer items-center justify-between rounded-md bg-gray-300 px-4 py-2 shadow-sm transition-all hover:bg-gray-400 hover:shadow-lg"
+                      onClick={() =>
+                        router.push(
+                          `/fichas/medicina/${selectUser.id}/${anamnese.id}`,
+                        )
+                      }
+                    >
+                      <span className="text-sm">{anamnese.date}</span>
+                      <ChevronRightIcon className="h-6 w-6" />
+                    </div>
+                  </>
                 )),
                 "exame-fisico": <div>exame-fisico</div>,
               }[selectMenu]
@@ -116,5 +147,81 @@ function ProfileUser({ user }: ProfileUserProps) {
       <span className="text-sm">Idade: 21</span>
       <span className="text-sm">Responsável: Pipoca</span>
     </div>
+  );
+}
+
+import { Check, ChevronsUpDown } from "lucide-react";
+import * as React from "react";
+
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+
+const frameworks = [
+  {
+    value: "ilhasLegais",
+    label: "Ilhas Legais",
+  },
+  {
+    value: "gaia",
+    label: "Gaia",
+  },
+];
+
+export function Combobox() {
+  const [open, setOpen] = React.useState(false);
+  const [value, setValue] = React.useState("");
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          role="combobox"
+          aria-expanded={open}
+          className=" justify-between"
+        >
+          {value
+            ? frameworks.find((framework) => framework.value === value)?.label
+            : "Selecione o tipo..."}
+          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className=" p-0">
+        <Command>
+          <CommandInput placeholder="Selecione o tipo..." />
+          <CommandEmpty>No framework found.</CommandEmpty>
+          <CommandGroup>
+            {frameworks.map((framework) => (
+              <CommandItem
+                key={framework.value}
+                onSelect={(currentValue) => {
+                  setValue(currentValue === value ? "" : currentValue);
+                  setOpen(false);
+                }}
+              >
+                <Check
+                  className={cn(
+                    "mr-2 h-4 w-4",
+                    value === framework.value ? "opacity-100" : "opacity-0",
+                  )}
+                />
+                {framework.label}
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        </Command>
+      </PopoverContent>
+    </Popover>
   );
 }

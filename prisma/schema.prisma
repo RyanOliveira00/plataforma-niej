@@ -18,3 +18,9 @@ model Example {
 
     @@index([name])
 }
+
+model AnamnesisGaia {
+    id String @id @default(cuid())
+
+    queixa_principal String
+}
