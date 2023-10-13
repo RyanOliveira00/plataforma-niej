@@ -73,6 +73,7 @@ model Resident {
     Medical_Anamnesis_GAIA_1 Medical_Anamnesis_GAIA_1[]
     Medical_Care_GAIA_1      Medical_Care_GAIA_1[]
     Nutritional_Form_GAIA_1  Nutritional_Form_GAIA_1[]
+    physiotherapyAnamnesis   physiotherapyAnamnesis?
 }
 
 model Dental_Anamnesis_GAIA_1 {
