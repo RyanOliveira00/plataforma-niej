@@ -236,3 +236,130 @@ model Nutritional_Form_GAIA_1 {
 
     resident Resident @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
+model physiotherapyAnamnesis {
+    id     String @id @default(cuid())
+    userId String @unique
+
+    complaintMain      String?
+    complaintSecondary String?
+    hda                String?
+    medicinesUse       String?
+    personalBackground String?
+
+    painAssessment          String?
+    painAssessmentIntensity String?
+    painLocation            String?
+    painIntensity           String?
+    painFrequency           String?
+    painFeature             String?
+
+    specificInspection    String?
+    specificInspectionObs String?
+
+    weight String?
+    height String?
+    pa     String?
+    fc     String?
+    fr     String?
+    ap     String?
+
+    posturalEvaluation    String?
+    posturalEvaluationObs String?
+
+    thinFeel            String?
+    fineStop            String?
+    movementRestriction String?
+    perception          String?
+
+    // 12
+    jointMovement1 String?
+    preserved1E    String?
+    preserved1D    String?
+    diminished1E   String?
+    diminished1D   String?
+
+    jointMovement2 String?
+    preserved2E    String?
+    preserved2D    String?
+    diminished2E   String?
+    diminished2D   String?
+
+    jointMovement3 String?
+    preserved3E    String?
+    preserved3D    String?
+    diminished3E   String?
+    diminished3D   String?
+
+    jointMovement4 String?
+    preserved4E    String?
+    preserved4D    String?
+    diminished4E   String?
+    diminished4D   String?
+
+    jointMovement5 String?
+    preserved5E    String?
+    preserved5D    String?
+    diminished5E   String?
+    diminished5D   String?
+
+    jointMovement6 String?
+    preserved6E    String?
+    preserved6D    String?
+    diminished6E   String?
+    diminished6D   String?
+
+    jointMovement7 String?
+    preserved7E    String?
+    preserved7D    String?
+    diminished7E   String?
+    diminished7D   String?
+
+    jointMovement8 String?
+    preserved8E    String?
+    preserved8D    String?
+    diminished8E   String?
+    diminished8D   String?
+
+    jointMovement9 String?
+    preserved9E    String?
+    preserved9D    String?
+    diminished9E   String?
+    diminished9D   String?
+
+    jointMovement10 String?
+    preserved10E    String?
+    preserved10D    String?
+    diminished10E   String?
+    diminished10D   String?
+
+    jointMovement11 String?
+    preserved11E    String?
+    preserved11D    String?
+    diminished11E   String?
+    diminished11D   String?
+
+    jointMovement12 String?
+    preserved12E    String?
+    preserved12D    String?
+    diminished12E   String?
+    diminished12D   String?
+
+    memberTested1     String?
+    degreeOfStrength1 String?
+    memberTested2     String?
+    degreeOfStrength2 String?
+    memberTested3     String?
+    degreeOfStrength3 String?
+    memberTested4     String?
+    degreeOfStrength4 String?
+    memberTested5     String?
+    degreeOfStrength5 String?
+
+    generalObservation String?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    resident Resident @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
