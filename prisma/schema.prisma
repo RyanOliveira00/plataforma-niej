@@ -133,7 +133,7 @@ model Dental_Anamnesis_Tooth_GAIA_1 {
 
 model Medical_Anamnesis_GAIA_1 {
     id     String @id @default(cuid())
-    userId String @unique
+    userId String
 
     bloodType    String?
     priorIllness String?
@@ -166,7 +166,7 @@ model Medical_Anamnesis_GAIA_1 {
 
 model Medical_Care_GAIA_1 {
     id     String @id @default(cuid())
-    userId String @unique
+    userId String
 
     date            String?
     weight          String?

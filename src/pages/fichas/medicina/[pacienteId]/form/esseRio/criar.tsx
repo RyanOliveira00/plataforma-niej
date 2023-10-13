@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function Medicina() {
   const router = useRouter();
@@ -44,7 +45,7 @@ export default function Medicina() {
     smoking: "",
     smokersOf: "",
 
-    etilismo : "",
+    etilismo: "",
     vaccineScheduleUpdate: "",
     typeOfHouse: "",
     typeOfHouseOther: "", //sem coluna na base de dados
@@ -100,6 +101,19 @@ export default function Medicina() {
   }
 
   const handleSubmit = async (e: any) => {
+    const _priorIllnessOther =
+      formData.priorIllness === "OUTRO"
+        ? formData.priorIllnessOther
+        : formData.priorIllness;
+    const _typeOfHouseOther =
+      formData.typeOfHouse === "Outro"
+        ? formData.typeOfHouseOther
+        : formData.typeOfHouse;
+    const _familyDiseases =
+      formData.familyDiseases === "OUTRO"
+        ? formData.familyDiseasesOther
+        : formData.familyDiseases;
+
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     e.preventDefault();
 
@@ -107,7 +121,24 @@ export default function Medicina() {
       setIsLoadingCreateForm(true);
       await axios.post("/api/fichas/medicina", {
         userId: pacienteId,
-        ...formData,
+        priorIllness: _priorIllnessOther,
+        typeOfHouse: _typeOfHouseOther,
+        familyDiseases: _familyDiseases,
+
+        bloodType: formData.bloodType,
+        previousHospitalizations: formData.previousHospitalizations,
+        reasonForPreviousSurgeries: formData.reasonForPreviousSurgeries,
+        reasonForPreviousHospitalizations:
+          formData.reasonForPreviousHospitalizations,
+        previousSurgeries: formData.previousSurgeries,
+        injuries: formData.injuries,
+        allergies: formData.allergies,
+        allergy: formData.allergy,
+        physicalActivity: formData.physicalActivity,
+        smoking: formData.smoking,
+        smokersOf: formData.smokersOf,
+        etilismo: formData.etilismo,
+        vaccineScheduleUpdate: formData.vaccineScheduleUpdate,
       });
 
       toast.success("Realizado com sucesso com sucesso!");
@@ -141,7 +172,7 @@ export default function Medicina() {
           <ProfileUser user={resident} residents={residents} />
 
           <form className="flex w-full flex-col gap-7" onSubmit={handleSubmit}>
-          <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1">
               <Text size="lg" asChild>
                 <label>Tipo sanguíneo</label>
               </Text>
@@ -213,7 +244,8 @@ export default function Medicina() {
                 />
               </RadioGroup>
             </div>
-            {/*{formData.priorIllness === "OUTRO" && (
+
+            {formData.priorIllness === "OUTRO" && (
               <TextField
                 label="Qual?"
                 variant="filled"
@@ -225,7 +257,7 @@ export default function Medicina() {
                   });
                 }}
               />
-              )}*/}
+            )}
 
             <div className="flex flex-col gap-1">
               <Text size="lg" asChild>
@@ -248,7 +280,7 @@ export default function Medicina() {
                 <FormControlLabel value="NAO" control={<Radio />} label="Não" />
               </RadioGroup>
             </div>
-            
+
             {formData.previousHospitalizations === "SIM" && (
               <TextField
                 label="Motivo?"
@@ -263,7 +295,7 @@ export default function Medicina() {
               />
             )}
 
-<div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1">
               <Text size="lg" asChild>
                 <label>Cirurgias prévias</label>
               </Text>
@@ -360,7 +392,7 @@ export default function Medicina() {
               />
             )}
 
-<div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1">
               <Text size="lg" asChild>
                 <label>Doenças familiares:</label>
               </Text>
@@ -404,7 +436,8 @@ export default function Medicina() {
                 />
               </RadioGroup>
             </div>
-            {/*{formData.familyDiseases === "OUTRO" && (
+
+            {formData.familyDiseases === "OUTRO" && (
               <TextField
                 label="Qual?"
                 variant="filled"
@@ -416,7 +449,7 @@ export default function Medicina() {
                   });
                 }}
               />
-              )}*/}
+            )}
 
             <div className="flex flex-col gap-1">
               <Text size="lg" asChild>
@@ -447,7 +480,6 @@ export default function Medicina() {
                 />
               </RadioGroup>
             </div>
-
 
             <div className="flex flex-col gap-1">
               <Text size="lg" asChild>
@@ -492,11 +524,11 @@ export default function Medicina() {
               </Text>
 
               <RadioGroup
-                value={formData.etilismo }
+                value={formData.etilismo}
                 onChange={(event) =>
                   setFormDate({
                     ...formData,
-                    etilismo : event.target.value,
+                    etilismo: event.target.value,
                   })
                 }
                 row
@@ -551,7 +583,7 @@ export default function Medicina() {
               </RadioGroup>
             </div>
 
-            {/*{formData.typeOfHouse === "Outro" && (
+            {formData.typeOfHouse === "Outro" && (
               <TextField
                 label="Qual?"
                 variant="filled"
@@ -563,7 +595,7 @@ export default function Medicina() {
                   });
                 }}
               />
-              )}*/}
+            )}
 
             <Button type="submit" disabled={isLoadingCreateForm}>
               {isLoadingCreateForm ? (
@@ -643,7 +675,6 @@ import {
   TextField,
 } from "@mui/material";
 import axios from "axios";
-import { toast } from "react-toastify";
 
 const frameworks = [
   {

@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function Medicina() {
   const router = useRouter();
@@ -702,7 +703,6 @@ import {
   TextField,
 } from "@mui/material";
 import axios from "axios";
-import { toast } from "react-toastify";
 
 const frameworks = [
   {
