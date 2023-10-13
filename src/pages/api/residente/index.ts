@@ -20,6 +20,8 @@ export default async function handler(
       },
       create: {
         name: userBody.name,
+        rg: userBody.rg,
+        cpf: userBody.cpf,
         socialName: userBody.socialName,
         birthDate: userBody.birthDate,
         gender: userBody.gender,
@@ -47,6 +49,8 @@ export default async function handler(
       update: {
         name: userBody.name,
         socialName: userBody.socialName,
+        rg: userBody.rg,
+        cpf: userBody.cpf,
         birthDate: userBody.birthDate,
         gender: userBody.gender,
         race: userBody.race,

@@ -56,6 +56,8 @@ const Resident: NextPage = () => {
       id: "",
       name: "",
     },
+    rg: "",
+    cpf: "",
     profession: "",
     maritalStatus: "",
     children: 0,
@@ -80,6 +82,8 @@ const Resident: NextPage = () => {
         socialName: resident.socialName,
         birthDate: resident.birthDate,
         gender: resident.gender,
+        cpf: resident.cpf,
+        rg: resident.rg,
         race: resident.race,
         religion: resident.religion,
         birthPlace: resident.birthPlace,
@@ -107,6 +111,8 @@ const Resident: NextPage = () => {
         socialName: "",
         birthDate: "",
         gender: "",
+        rg: "",
+        cpf: "",
         race: "",
         religion: "",
         birthPlace: "",
@@ -297,6 +303,22 @@ const Resident: NextPage = () => {
             onChange={(e) =>
               setResident({ ...resident, phone: e.target.value })
             }
+            required
+          />
+
+          <TextField
+            label="CPF"
+            variant="filled"
+            value={resident.cpf}
+            onChange={(e) => setResident({ ...resident, cpf: e.target.value })}
+            required
+          />
+
+          <TextField
+            label="RG"
+            variant="filled"
+            value={resident.rg}
+            onChange={(e) => setResident({ ...resident, rg: e.target.value })}
             required
           />
 

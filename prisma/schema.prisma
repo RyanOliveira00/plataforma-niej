@@ -33,9 +33,12 @@ model User {
 model Resident {
     id String @id @default(cuid())
 
-    name       String
-    socialName String
-    birthDate  DateTime
+    name String?
+    cpf  String?
+    rg   String?
+
+    socialName String?
+    birthDate  DateTime?
     birthPlace String?
     gender     String
 
