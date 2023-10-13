@@ -1,41 +1,39 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { RecordLayout } from "@/components/layouts/RecordLayout";
 
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { Plus } from "lucide-react";
 import { useRouter } from "next/router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-export const users = [
-  { id: "1", name: "João", cpf: "123.456.789-10" },
-  {
-    id: "2",
-    name: "Maria",
-    cpf: "123.456.789-10",
-  },
-  {
-    id: "3",
-    name: "José",
-    cpf: "123.456.789-10",
-  },
-  {
-    id: "4",
-    name: "Joana",
-    cpf: "123.456.789-10",
-  },
-  {
-    id: "5",
-    name: "Joaquim",
-    cpf: "123.456.789-10",
-  },
-];
-
-export default function Medicina() {
+export default function ResidentePage() {
   const router = useRouter();
+  const [users, setUsers] = useState<CardUserProps[]>([]);
+
+  useEffect(() => {
+    const getResidents = async () => {
+      const response = await fetch("/api/residente");
+      const residents = await response.json();
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      setUsers(residents);
+    };
+
+    getResidents();
+  }, []);
 
   return (
     <RecordLayout>
       <div className="flex w-full flex-col items-center justify-center gap-4 rounded-md bg-white px-4 py-16 shadow-2xl sm:w-[600px]">
-        <h1 className="bold text-xl">Medicina</h1>
+        <h1 className="bold text-xl">Fichas de medicina</h1>
+        <button
+          className="flex h-10 w-full items-center justify-center gap-1 rounded-md bg-purple-800 text-sm font-bold text-white"
+          onClick={() => router.push("/residente/cadastrar")}
+        >
+          <Plus className="h-6 w-6" />
+          Adicionar residente
+        </button>
 
         <ListUser
           users={users}
@@ -76,20 +74,7 @@ function ListUser({ users, onClick }: ListUserProps) {
         .trim()
         .toLowerCase();
 
-      const cpfNormalized = user.cpf
-        .normalize("NFD")
-        .replace(/\s+/g, "-")
-        .split(".")
-        .join("")
-        .split("-")
-        .join("")
-        .trim()
-        .toLowerCase();
-
-      return (
-        nameNormalized.includes(searchNormalized) ||
-        cpfNormalized.includes(searchNormalized)
-      );
+      return nameNormalized.includes(searchNormalized);
     });
   }, [search, users]);
 
@@ -97,7 +82,7 @@ function ListUser({ users, onClick }: ListUserProps) {
     <>
       <input
         type="text"
-        placeholder="Buscar por NOME/CPF/RG"
+        placeholder="Buscar por NOME"
         className="h-10 w-full rounded-md border-2 border-gray-300 px-2 focus:border-blue-400 focus:outline-none"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
@@ -131,7 +116,6 @@ function ListUser({ users, onClick }: ListUserProps) {
 export type CardUserProps = {
   id: string;
   name: string;
-  cpf: string;
   onClick?: () => void;
 };
 
@@ -143,7 +127,6 @@ function CardUser(user: CardUserProps) {
     >
       <div className="flex flex-col">
         <span className="text-sm">{user.name}</span>
-        <span className="text-sm">{user.cpf}</span>
       </div>
 
       <div className="flex items-center">

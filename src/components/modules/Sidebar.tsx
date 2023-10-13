@@ -3,7 +3,7 @@ import { Transition } from "@headlessui/react";
 import { ArrowSmallDownIcon } from "@heroicons/react/24/outline";
 import * as CollapsiblePrimitive from "@radix-ui/react-collapsible";
 import clsx from "clsx";
-import { Apple, FileText, Users } from "lucide-react";
+import { Apple, FileText, Users, Stethoscope } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Text } from "../elements/Text";
@@ -105,6 +105,21 @@ export function Sidebar() {
                       >
                         <Apple className="h-6 w-6" />
                         <Text className="ml-3 font-bold">Nutrição</Text>
+                      </Link>
+
+                      <Link
+                        href="/fichas/medicina"
+                        onClick={() => toggleSidebar()}
+                        className={clsx(
+                          "flex items-center rounded-lg p-2 transition duration-75 hover:bg-purple-300",
+                          {
+                            "bg-purple-400":
+                              router.pathname === "/fichas/medicina",
+                          },
+                        )}
+                      >
+                        <Stethoscope className="h-6 w-6" />
+                        <Text className="ml-3 font-bold">Medicina</Text>
                       </Link>
                     </li>
                   </ul>

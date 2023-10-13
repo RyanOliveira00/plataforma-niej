@@ -1,15 +1,15 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+// @ts-nocheck
 import { RecordLayout } from "@/components/layouts/RecordLayout";
 
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -17,7 +17,6 @@ import {
 } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { users, type CardUserProps } from "..";
 
 export const medical_appointments = {
   anamnese: [
@@ -30,16 +29,63 @@ export const medical_appointments = {
 };
 
 export default function Medicina() {
-  // PEGAR PARAMETROS DA ROTA
   const router = useRouter();
   const { pacienteId } = router.query;
 
-  const [selectUser] = useState<CardUserProps>(
-    users.find((user) => user.id === pacienteId!)!,
-  );
-  const [selectMenu, setSelectMenu] = useState<"anamnese" | "exame-fisico">(
-    "anamnese",
-  );
+  const [residents, setResidents] = useState([]);
+  const [resident, setResident] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+
+  const [selectMenu, setSelectMenu] = useState("form");
+
+  React.useEffect(() => {
+    if (!pacienteId) {
+      return;
+    }
+
+    const getResident = async () => {
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      try {
+        const residentsRaw = await fetch("/api/residente");
+        const residents = await residentsRaw.json();
+        setResidents(residents);
+
+        const response = await fetch(`/api/residente/${pacienteId}`);
+
+        if (!response.ok) {
+          console.log("deu erro");
+          return;
+        }
+
+        const resident = await response.json();
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+
+        setResident({
+          ...resident,
+          birthDate: new Date(resident.birthDate),
+          responsible: {
+            id: resident.responsibleId,
+            name: resident.responsibleId,
+          },
+        });
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getResident();
+  }, [pacienteId]);
+
+  if (isLoading) {
+    return (
+      <RecordLayout>
+        <div className="flex w-full flex-col items-center justify-center gap-4 rounded-md bg-white px-4 py-16 shadow-2xl sm:w-[600px]">
+          <Loader2 className=" h-32 w-32 animate-spin" color="purple" />
+        </div>
+      </RecordLayout>
+    );
+  }
 
   return (
     <RecordLayout>
@@ -56,49 +102,45 @@ export default function Medicina() {
             Voltar
           </button>
 
-          <ProfileUser user={selectUser} />
+          <ProfileUser user={resident} residents={residents} />
 
           <div className="flex items-center gap-4 overflow-y-auto border-b-2 border-gray-300 px-2 py-4">
             <button
               className={
-                selectMenu === "anamnese"
-                  ? "border-b-2 border-blue-400"
+                selectMenu === "form"
+                  ? "border-b-2 border-purple-400"
                   : "text-gray-400 transition-colors hover:text-gray-600"
               }
-              onClick={() => setSelectMenu("anamnese")}
+              onClick={() => setSelectMenu("form")}
             >
-              Anamnese
-            </button>
-
-            <div className="h-6 min-w-[1px] bg-gray-300" />
-
-            <button
-              className={
-                selectMenu === "exame-fisico"
-                  ? "border-b-2 border-blue-400"
-                  : "text-gray-400 transition-colors hover:text-gray-600"
-              }
-              onClick={() => setSelectMenu("exame-fisico")}
-            >
-              Exame Físico
+              Formulário
             </button>
           </div>
 
           <div className="flex flex-col gap-4 overflow-y-auto">
             {
               {
-                anamnese: medical_appointments.anamnese.map((anamnese) => (
+                form: (
                   <>
-                    <Dialog>
+                    <button
+                      className="flex items-center gap-2 self-end text-sm text-gray-400 transition-colors hover:text-gray-600 focus:outline-none"
+                      onClick={() =>
+                        router.push(
+                          `/fichas/medicina/${pacienteId}/form/esseRio/criar`,
+                        )
+                      }
+                    >
+                      <PlusIcon className="h-6 w-6" />
+                      Criar
+                    </button>
+                    {/* <Dialog>
                       <DialogTrigger asChild>
-                        <button className="flex items-center gap-2 self-end text-sm text-gray-400 transition-colors hover:text-gray-600 focus:outline-none">
-                          <PlusIcon className="h-6 w-6" />
-                          Criar
-                        </button>
                       </DialogTrigger>
                       <DialogContent className="sm:max-w-[425px]">
                         <DialogHeader>
-                          <DialogTitle>Escolha a ficha de anamnese</DialogTitle>
+                          <DialogTitle>
+                            Escolha a ficha de Formulário
+                          </DialogTitle>
                         </DialogHeader>
                         <Combobox />
 
@@ -106,23 +148,34 @@ export default function Medicina() {
                           <Button type="submit">Criar</Button>
                         </DialogFooter>
                       </DialogContent>
-                    </Dialog>
-
-                    <div
-                      key={anamnese.date}
-                      className="flex cursor-pointer items-center justify-between rounded-md bg-gray-300 px-4 py-2 shadow-sm transition-all hover:bg-gray-400 hover:shadow-lg"
-                      onClick={() =>
-                        router.push(
-                          `/fichas/medicina/${selectUser.id}/${anamnese.id}`,
-                        )
-                      }
-                    >
-                      <span className="text-sm">{anamnese.date}</span>
-                      <ChevronRightIcon className="h-6 w-6" />
-                    </div>
+                    </Dialog> */}
+                    {resident.Nutritional_Form_GAIA_1.map((anamnese) => (
+                      <>
+                        <div
+                          key={anamnese.id}
+                          className="flex cursor-not-allowed cursor-pointer items-center justify-between rounded-md bg-gray-100 px-4 py-2 shadow-sm transition-all hover:bg-gray-400 hover:shadow-lg"
+                          // onClick={() =>
+                          //   router.push(
+                          //     `/fichas/medicina/${resident.id}/${anamnese.id}`,
+                          //   )
+                          // }
+                        >
+                          <span className="text-sm">
+                            {new Date(anamnese.createdAt).toLocaleDateString(
+                              "pt-BR",
+                              {
+                                day: "2-digit",
+                                month: "2-digit",
+                                year: "numeric",
+                              },
+                            )}
+                          </span>
+                          <ChevronRightIcon className="h-6 w-6" />
+                        </div>
+                      </>
+                    ))}
                   </>
-                )),
-                "exame-fisico": <div>exame-fisico</div>,
+                ),
               }[selectMenu]
             }
           </div>
@@ -136,21 +189,40 @@ type ProfileUserProps = {
   user: { name: string; cpf: string };
 };
 
-function ProfileUser({ user }: ProfileUserProps) {
+function ProfileUser({ user, residents }: ProfileUserProps) {
   return (
     <div className="flex w-full flex-col gap-1 rounded-md border border-gray-300 bg-gray-100 px-4 py-2">
       <span className="text-sm">Nome: {user.name}</span>
-      <span className="text-sm">Nome Social: Pipoca</span>
+      {user.socialName !== "" && (
+        <span className="text-sm">Nome Social: {user.socialName}</span>
+      )}
       <span className="text-sm">CPF: {user.cpf}</span>
-      <span className="text-sm">RG: 123456789</span>
-      <span className="text-sm">Data de Nascimento: 01/01/2000</span>
-      <span className="text-sm">Idade: 21</span>
-      <span className="text-sm">Responsável: Pipoca</span>
+      <span className="text-sm">RG: TODO:</span>
+      <span className="text-sm">
+        Data de Nascimento:{" "}
+        {user.birthDate.toLocaleDateString("pt-BR", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        })}
+      </span>
+      <span className="text-sm">
+        Idade: {new Date().getFullYear() - user.birthDate.getFullYear()}
+      </span>
+      {user.responsibleId && (
+        <span className="text-sm">
+          Responsável:{" "}
+          {
+            residents.find((resident) => resident.id === user.responsibleId)
+              ?.name
+          }
+        </span>
+      )}
     </div>
   );
 }
 
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown, Loader2 } from "lucide-react";
 import * as React from "react";
 
 import {
@@ -174,7 +246,7 @@ const frameworks = [
   },
   {
     value: "gaia",
-    label: "Gaia",
+    label: "Gaia 1",
   },
 ];
 
@@ -225,3 +297,4 @@ export function Combobox() {
     </Popover>
   );
 }
+
