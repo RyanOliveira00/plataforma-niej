@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { db } from "@/server/db";
 import { randomUUID } from "crypto";
 import type { NextApiRequest, NextApiResponse } from "next";
@@ -14,12 +14,15 @@ export default async function handler(
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const body = req.body;
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const user = await db.physiotherapyAnamnesis.create({
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      data: {
+    const user = await db.dental_Anamnesis_GAIA_1.upsert({
+      where: {
+        id: body.id ? body.id : randomUUID(),
+      },
+      create: {
         ...body,
-        id: randomUUID(),
+      },
+      update: {
+        ...body,
       },
     });
 

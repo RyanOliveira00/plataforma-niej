@@ -190,7 +190,7 @@ export default function Medicina() {
 
   const handleSubmit = async (e: any) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-    e.preventDefault();
+    // e.preventDefault();
 
     try {
       setIsLoadingCreateForm(true);
@@ -230,9 +230,9 @@ export default function Medicina() {
           <ProfileUser user={resident} residents={residents} />
 
           <form className="flex w-full flex-col gap-7" onSubmit={handleSubmit}>
-          <div className="flex flex-col gap-1">
-            <Text>Queixa principal?</Text>
-            <TextField
+            <div className="flex flex-col gap-1">
+              <Text>Queixa principal?</Text>
+              <TextField
                 label=""
                 multiline
                 rows={1}
@@ -244,24 +244,24 @@ export default function Medicina() {
                     complaintMain: e.target.value,
                   })
                 }
-            />
-          </div>
-          
+              />
+            </div>
+
             <div className="flex flex-col gap-1">
               <Text>Queixa funcional?</Text>
               <TextField
-                  label=""
-                  multiline
-                  rows={1}
-                  variant="filled"
-                  value={formData.complaintSecondary}
-                  onChange={(e) =>
-                    setFormDate({
-                      ...formData,
-                      complaintSecondary: e.target.value,
-                    })
-                  }
-                />
+                label=""
+                multiline
+                rows={1}
+                variant="filled"
+                value={formData.complaintSecondary}
+                onChange={(e) =>
+                  setFormDate({
+                    ...formData,
+                    complaintSecondary: e.target.value,
+                  })
+                }
+              />
             </div>
 
             <div className="flex flex-col gap-1">
@@ -611,7 +611,7 @@ export default function Medicina() {
                     fr: e.target.value,
                   })
                 }
-              /> 
+              />
             </div>
 
             <div className="flex flex-col gap-1">
@@ -630,13 +630,17 @@ export default function Medicina() {
             </div>
           </form>
 
-            <Button type="submit" disabled={isLoadingCreateForm}>
-              {isLoadingCreateForm ? (
-                <CircularProgress size={24} color="secondary" />
-              ) : (
-                "Enviar"
-              )}
-            </Button>
+          <Button
+            type="submit"
+            disabled={isLoadingCreateForm}
+            onClick={() => handleSubmit()}
+          >
+            {isLoadingCreateForm ? (
+              <CircularProgress size={24} color="secondary" />
+            ) : (
+              "Enviar"
+            )}
+          </Button>
         </div>
       </div>
     </RecordLayout>

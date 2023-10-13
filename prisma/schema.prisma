@@ -73,12 +73,12 @@ model Resident {
     Medical_Anamnesis_GAIA_1 Medical_Anamnesis_GAIA_1[]
     Medical_Care_GAIA_1      Medical_Care_GAIA_1[]
     Nutritional_Form_GAIA_1  Nutritional_Form_GAIA_1[]
-    physiotherapyAnamnesis   physiotherapyAnamnesis?
+    physiotherapyAnamnesis   physiotherapyAnamnesis[]
 }
 
 model Dental_Anamnesis_GAIA_1 {
     id     String @id @default(cuid())
-    userId String @unique
+    userId String
 
     complaint               String?
     isToothache             String?
@@ -240,7 +240,7 @@ model Nutritional_Form_GAIA_1 {
 
 model physiotherapyAnamnesis {
     id     String @id @default(cuid())
-    userId String @unique
+    userId String
 
     complaintMain      String?
     complaintSecondary String?

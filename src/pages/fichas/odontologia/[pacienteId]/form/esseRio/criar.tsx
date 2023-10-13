@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
@@ -22,6 +23,8 @@ export default function Medicina() {
   const [resident, setResident] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingCreateForm, setIsLoadingCreateForm] = useState(false);
+
+  const [data, setData] = useState([]);
 
   const [formData, setFormDate] = useState({
     complaint: "",
@@ -105,13 +108,13 @@ export default function Medicina() {
 
   const handleSubmit = async (e: any) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-    e.preventDefault();
 
     try {
       setIsLoadingCreateForm(true);
       await axios.post("/api/fichas/odontologia", {
         userId: pacienteId,
         ...formData,
+        teeth: data,
       });
 
       toast.success("Realizado com sucesso com sucesso!");
@@ -719,15 +722,81 @@ export default function Medicina() {
                 })
               }
             />
+
+            <Text size="lg">2- ODONTOGRAMA</Text>
+            <Odontogram
+              tooth={(labelT: any, zoneT: any, idT: any) => {
+                // @ts-expect-error - odontograa não tipado corretamente
+                setData((oldArray) => [
+                  ...oldArray,
+                  {
+                    label: labelT,
+                    zone: zoneT,
+                    id: idT,
+                  },
+                ]);
+              }}
+              rtooth={(id: any) => {
+                setData((current) =>
+                  current.filter((obj) => {
+                    // @ts-expect-error - odontograa não tipado corretamente
+                    return obj.id !== id;
+                  }),
+                );
+              }}
+            />
+            {data.map((obj) => {
+              const dataWihoutThis = data.filter((item) => {
+                // @ts-expect-error - odontograa não tipado corretamente
+                return item.id !== obj.id;
+              });
+
+              return (
+                // @ts-expect-error - odontograa não tipado corretamente
+                <div key={obj.id} className="flex flex-col">
+                  {/* @ts-expect-error - odontograa não tipado corretamente */}
+                  <Text size="lg">{`${obj.label} - ${obj.zone}`}</Text>
+                  <Select
+                    variant="filled"
+                    onChange={(e) => {
+                      // @ts-expect-error - odontograa não tipado corretamente
+                      setData(() => [
+                        ...dataWihoutThis,
+                        {
+                          // @ts-expect-error - odontograa não tipado corretamente
+                          id: obj.id,
+                          // @ts-expect-error - odontograa não tipado corretamente
+                          label: obj.label,
+                          // @ts-expect-error - odontograa não tipado corretamente
+                          zone: obj.zone,
+
+                          observation: e.target.value,
+                        },
+                      ]);
+                    }}
+                  >
+                    <MenuItem value="CARIADO">CARIADO</MenuItem>
+                    <MenuItem value="HÍGIDO">HÍGIDO</MenuItem>
+                    <MenuItem value="AUSENTE">AUSENTE</MenuItem>
+                    <MenuItem value="RESTAURADO">RESTAURADO</MenuItem>
+                    <MenuItem value="MANCHA BRANCA">MANCHA BRANCA</MenuItem>
+                  </Select>
+                </div>
+              );
+            })}
           </form>
 
-            <Button type="submit" disabled={isLoadingCreateForm}>
-              {isLoadingCreateForm ? (
-                <CircularProgress size={24} color="secondary" />
-              ) : (
-                "Enviar"
-              )}
-            </Button>
+          <Button
+            type="submit"
+            disabled={isLoadingCreateForm}
+            onClick={() => handleSubmit()}
+          >
+            {isLoadingCreateForm ? (
+              <CircularProgress size={24} color="secondary" />
+            ) : (
+              "Enviar"
+            )}
+          </Button>
         </div>
       </div>
     </RecordLayout>
@@ -775,6 +844,7 @@ import { Check, ChevronsUpDown, Loader2 } from "lucide-react";
 import * as React from "react";
 
 import { Text } from "@/components/elements/Text";
+import Odontogram from "@/components/elements/odontograma/Odontogram";
 import {
   Command,
   CommandEmpty,
@@ -791,8 +861,10 @@ import { cn } from "@/lib/utils";
 import {
   CircularProgress,
   FormControlLabel,
+  MenuItem,
   Radio,
   RadioGroup,
+  Select,
   TextField,
 } from "@mui/material";
 import axios from "axios";
