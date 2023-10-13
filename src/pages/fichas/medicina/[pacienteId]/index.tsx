@@ -196,8 +196,7 @@ function ProfileUser({ user, residents }: ProfileUserProps) {
       {user.socialName !== "" && (
         <span className="text-sm">Nome Social: {user.socialName}</span>
       )}
-      <span className="text-sm">CPF: {user.cpf}</span>
-      <span className="text-sm">RG: TODO:</span>
+
       <span className="text-sm">
         Data de Nascimento:{" "}
         {user.birthDate.toLocaleDateString("pt-BR", {
@@ -297,4 +296,3 @@ export function Combobox() {
     </Popover>
   );
 }
-
