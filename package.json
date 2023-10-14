@@ -24,6 +24,14 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@t3-oss/env-nextjs": "^0.6.0",
     "@tanstack/react-query": "^4.35.3",
+    "@tiptap/extension-color": "^2.1.12",
+    "@tiptap/extension-highlight": "^2.1.12",
+    "@tiptap/extension-list-item": "^2.1.12",
+    "@tiptap/extension-placeholder": "^2.1.12",
+    "@tiptap/extension-text-style": "^2.1.12",
+    "@tiptap/extension-typography": "^2.1.12",
+    "@tiptap/react": "^2.1.12",
+    "@tiptap/starter-kit": "^2.1.12",
     "@trpc/client": "^10.38.4",
     "@trpc/next": "^10.38.4",
     "@trpc/react-query": "^10.38.4",
@@ -47,6 +55,7 @@
     "superjson": "^1.13.3",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
+    "uuid": "^9.0.1",
     "zod": "^3.22.2"
   },
   "devDependencies": {

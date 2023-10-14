@@ -77,6 +77,19 @@ model Resident {
     Medical_Care_GAIA_1      Medical_Care_GAIA_1[]
     Nutritional_Form_GAIA_1  Nutritional_Form_GAIA_1[]
     physiotherapyAnamnesis   physiotherapyAnamnesis[]
+    Blank_Sheet              Blank_Sheet[]
+}
+
+model Blank_Sheet {
+    id     String @id @unique @default(cuid())
+    userId String
+
+    text String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    resident Resident @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Dental_Anamnesis_GAIA_1 {

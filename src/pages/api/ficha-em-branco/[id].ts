@@ -13,21 +13,33 @@ export default async function handler(
     res.status(400).send("Missing id");
   }
 
-  if (req.method === "GET") {
-    // Process a GET request
-    const user = await db.resident.findUnique({
+  if (req.method === "POST") {
+    const black_sheet = await db.Blank_Sheet.upsert({
       where: {
         id: id,
       },
-      include: {
-        Nutritional_Form_GAIA_1: true,
-        Dental_Anamnesis_GAIA_1: true,
-        Medical_Anamnesis_GAIA_1: true,
-        Medical_Care_GAIA_1: true,
-        Blank_Sheet: true,
+      create: {
+        ...req.body,
+      },
+      update: {
+        ...req.body,
       },
     });
 
-    res.status(200).send(user);
+    res.status(201).json(black_sheet);
+  }
+
+  if (req.method === "GET") {
+    // Process a GET request
+    console.log(id);
+    const black_sheet = await db.Blank_Sheet.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    console.log("black_sheet =>>>>>>>>>", black_sheet);
+
+    res.status(200).json(black_sheet);
   }
 }

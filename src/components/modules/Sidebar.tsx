@@ -3,7 +3,15 @@ import { Transition } from "@headlessui/react";
 import { ArrowSmallDownIcon } from "@heroicons/react/24/outline";
 import * as CollapsiblePrimitive from "@radix-ui/react-collapsible";
 import clsx from "clsx";
-import { Apple, FileText, Users, Stethoscope, Dumbbell, HeartPulse } from "lucide-react";
+import {
+  Apple,
+  Dumbbell,
+  FileText,
+  HeartPulse,
+  PenSquare,
+  Stethoscope,
+  Users,
+} from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Text } from "../elements/Text";
@@ -73,6 +81,22 @@ export function Sidebar() {
               >
                 <Users className="h-6 w-6" />
                 <Text className="ml-3 font-bold">Residentes</Text>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/ficha-em-branco"
+                onClick={() => toggleSidebar()}
+                className={clsx(
+                  "flex items-center rounded-lg p-2 transition duration-75 hover:bg-purple-300",
+                  {
+                    "bg-purple-400":
+                      router.pathname.includes("/ficha-em-branco"),
+                  },
+                )}
+              >
+                <PenSquare className="h-6 w-6" />
+                <Text className="ml-3 font-bold">Ficha em branco</Text>
               </Link>
             </li>
             <li>
