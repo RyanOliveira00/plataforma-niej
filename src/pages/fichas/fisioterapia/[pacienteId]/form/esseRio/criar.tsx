@@ -37,12 +37,6 @@ export default function Medicina() {
     painFeature: "",
     specificInspection: "",
     specificInspectionObs: "",
-    weight: "",
-    height: "",
-    pa: "",
-    fc: "",
-    fr: "",
-    ap: "",
 
     posturalEvaluation: "",
     posturalEvaluationObs: "",
@@ -532,98 +526,6 @@ export default function Medicina() {
                   setFormDate({
                     ...formData,
                     specificInspectionObs: e.target.value,
-                  })
-                }
-              />
-            </div>
-
-            <Text size="lg">Sinais vitais</Text>
-
-            <div className="flex flex-col gap-1">
-              <Text>Peso:</Text>
-              <TextField
-                label=""
-                variant="filled"
-                value={formData.weight}
-                onChange={(e) =>
-                  setFormDate({
-                    ...formData,
-                    weight: e.target.value,
-                  })
-                }
-              />
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <Text>Altura:</Text>
-              <TextField
-                label=""
-                variant="filled"
-                value={formData.height}
-                onChange={(e) =>
-                  setFormDate({
-                    ...formData,
-                    height: e.target.value,
-                  })
-                }
-              />
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <Text>PA:</Text>
-              <TextField
-                label=""
-                variant="filled"
-                value={formData.pa}
-                onChange={(e) =>
-                  setFormDate({
-                    ...formData,
-                    pa: e.target.value,
-                  })
-                }
-              />
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <Text>FC:</Text>
-              <TextField
-                label=""
-                variant="filled"
-                value={formData.fc}
-                onChange={(e) =>
-                  setFormDate({
-                    ...formData,
-                    fc: e.target.value,
-                  })
-                }
-              />
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <Text>FR:</Text>
-              <TextField
-                label=""
-                variant="filled"
-                value={formData.fr}
-                onChange={(e) =>
-                  setFormDate({
-                    ...formData,
-                    fr: e.target.value,
-                  })
-                }
-              />
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <Text>AP:</Text>
-              <TextField
-                label=""
-                variant="filled"
-                value={formData.ap}
-                onChange={(e) =>
-                  setFormDate({
-                    ...formData,
-                    ap: e.target.value,
                   })
                 }
               />
