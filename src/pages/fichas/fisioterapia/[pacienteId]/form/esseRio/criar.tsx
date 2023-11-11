@@ -35,8 +35,12 @@ export default function Medicina() {
     painIntensity: "",
     painFrequency: "",
     painFeature: "",
-    specificInspection: "",
-    specificInspectionObs: "",
+    specific_inspection: [""],
+    specific_inspectionObs: "",
+    pain_characteristics: [""],
+    pastExercises: "",
+    pain_interference: [""],
+    pain_assessment: [""],
 
     posturalEvaluation: "",
     posturalEvaluationObs: "",
@@ -310,32 +314,80 @@ export default function Medicina() {
                 <label>AVALIAÇÃO DA DOR</label>
               </Text>
 
-              <RadioGroup
-                value={formData.painAssessment}
-                onChange={(event) =>
-                  setFormDate({
-                    ...formData,
-                    painAssessment: event.target.value,
-                  })
-                }
-                row
-              >
-                <FormControlLabel
-                  value="REPOUSO"
-                  control={<Radio />}
-                  label="Repouso"
+              <div className="flex items-center space-x-2 mb-2">
+                <Checkbox id="REPOUSO"
+                  checked={formData.pain_assessment.includes("REPOUSO")} 
+                  onCheckedChange={(checked) => {
+                    if (checked) {
+                      setFormDate({
+                        ...formData,
+                        pain_assessment: [...formData.pain_assessment, "REPOUSO"],
+                      })
+                    } else {
+                      setFormDate({
+                        ...formData,
+                        pain_assessment: formData.pain_assessment.filter((item) => item !== "REPOUSO"),
+                      })
+                    }
+                  }}
                 />
-                <FormControlLabel
-                  value="MOVIMENTO"
-                  control={<Radio />}
-                  label="Movimento"
+                <label
+                  htmlFor="REPOUSO"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  REPOUSO
+                </label>
+              </div>
+
+              <div className="flex items-center space-x-2 mb-2">
+                <Checkbox id="MOVIMENTO" 
+                  checked={formData.pain_assessment.includes("MOVIMENTO")} 
+                  onCheckedChange={(checked) => {
+                    if (checked) {
+                      setFormDate({
+                        ...formData,
+                        pain_assessment: [...formData.pain_assessment, "MOVIMENTO"],
+                      })
+                    } else {
+                      setFormDate({
+                        ...formData,
+                        pain_assessment: formData.pain_assessment.filter((item) => item !== "MOVIMENTO"),
+                      })
+                    }
+                  }}
                 />
-                <FormControlLabel
-                  value="PALPAÇÃO"
-                  control={<Radio />}
-                  label="Palpação"
+                <label
+                  htmlFor="MOVIMENTO"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  MOVIMENTO
+                </label>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <Checkbox id="PALPACAO"
+                  checked={formData.pain_assessment.includes("PALPACAO")} 
+                  onCheckedChange={(checked) => {
+                    if (checked) {
+                      setFormDate({
+                        ...formData,
+                        pain_assessment: [...formData.pain_assessment, "PALPACAO"],
+                      })
+                    } else {
+                      setFormDate({
+                        ...formData,
+                        pain_assessment: formData.pain_assessment.filter((item) => item !== "PALPACAO"),
+                      })
+                    }
+                  }}
                 />
-              </RadioGroup>
+                <label
+                  htmlFor="PALPACAO"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  PALPAÇÃO
+                </label>
+              </div>
             </div>
 
             <div className="flex flex-col gap-1">
@@ -402,47 +454,156 @@ export default function Medicina() {
                 <label>Característica</label>
               </Text>
 
-              <RadioGroup
-                value={formData.painFeature}
-                onChange={(event) =>
-                  setFormDate({
-                    ...formData,
-                    painFeature: event.target.value,
-                  })
-                }
-                row
-              >
-                <FormControlLabel
-                  value="Pulsátil"
-                  control={<Radio />}
-                  label="Pulsátil"
+              <div className="flex items-center space-x-2 mb-2">
+                <Checkbox id="Pulsatil" 
+                  checked={formData.pain_characteristics.includes("Pulsatil")} 
+                  onCheckedChange={(checked) => {
+                    if (checked) {
+                      setFormDate({
+                        ...formData,
+                        pain_characteristics: [...formData.pain_characteristics, "Pulsatil"],
+                      })
+                    } else {
+                      setFormDate({
+                        ...formData,
+                        pain_characteristics: formData.pain_characteristics.filter((item) => item !== "Pulsatil"),
+                      })
+                    }
+                  }}
                 />
-                <FormControlLabel
-                  value="Em peso"
-                  control={<Radio />}
-                  label="Em peso"
+                <label
+                  htmlFor="Pulsatil"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Pulsátil
+                </label>
+              </div>
+
+              <div className="flex items-center space-x-2 mb-2">
+                <Checkbox id="Empeso" 
+                  checked={formData.pain_characteristics.includes("Empeso")} 
+                  onCheckedChange={(checked) => {
+                    if (checked) {
+                      setFormDate({
+                        ...formData,
+                        pain_characteristics: [...formData.pain_characteristics, "Empeso"],
+                      })
+                    } else {
+                      setFormDate({
+                        ...formData,
+                        pain_characteristics: formData.pain_characteristics.filter((item) => item !== "Empeso"),
+                      })
+                    }
+                  }}
                 />
-                <FormControlLabel
-                  value="Latejante"
-                  control={<Radio />}
-                  label="Latejante"
+                <label
+                  htmlFor="Empeso"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Em peso
+                </label>
+              </div>
+
+               <div className="flex items-center space-x-2 mb-2">
+                <Checkbox id="Latejante" 
+                  checked={formData.pain_characteristics.includes("Latejante")} 
+                  onCheckedChange={(checked) => {
+                    if (checked) {
+                      setFormDate({
+                        ...formData,
+                        pain_characteristics: [...formData.pain_characteristics, "Latejante"],
+                      })
+                    } else {
+                      setFormDate({
+                        ...formData,
+                        pain_characteristics: formData.pain_characteristics.filter((item) => item !== "Latejante"),
+                      })
+                    }
+                  }}
                 />
-                <FormControlLabel
-                  value="Queimação"
-                  control={<Radio />}
-                  label="Queimação"
+                <label
+                  htmlFor="Latejante"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Latejante
+                </label>
+              </div>
+              
+              <div className="flex items-center space-x-2 mb-2">
+                <Checkbox id="Queimacao" 
+                  checked={formData.pain_characteristics.includes("Queimacao")} 
+                  onCheckedChange={(checked) => {
+                    if (checked) {
+                      setFormDate({
+                        ...formData,
+                        pain_characteristics: [...formData.pain_characteristics, "Queimacao"],
+                      })
+                    } else {
+                      setFormDate({
+                        ...formData,
+                        pain_characteristics: formData.pain_characteristics.filter((item) => item !== "Queimacao"),
+                      })
+                    }
+                  }}
                 />
-                <FormControlLabel
-                  value="Profunda"
-                  control={<Radio />}
-                  label="Profunda"
+                <label
+                  htmlFor="Queimacao"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Queimação
+                </label>
+              </div>
+
+                
+              <div className="flex items-center space-x-2 mb-2">
+                <Checkbox id="Profunda" 
+                  checked={formData.pain_characteristics.includes("Profunda")} 
+                  onCheckedChange={(checked) => {
+                    if (checked) {
+                      setFormDate({
+                        ...formData,
+                        pain_characteristics: [...formData.pain_characteristics, "Profunda"],
+                      })
+                    } else {
+                      setFormDate({
+                        ...formData,
+                        pain_characteristics: formData.pain_characteristics.filter((item) => item !== "Profunda"),
+                      })
+                    }
+                  }}
                 />
-                <FormControlLabel
-                  value="Em pressão"
-                  control={<Radio />}
-                  label="Em pressão"
+                <label
+                  htmlFor="Profunda"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Profunda
+                </label>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <Checkbox id="Empressao"
+                  checked={formData.pain_characteristics.includes("Empressao")} 
+                  onCheckedChange={(checked) => {
+                    if (checked) {
+                      setFormDate({
+                        ...formData,
+                        pain_characteristics: [...formData.pain_characteristics, "Empressao"],
+                      })
+                    } else {
+                      setFormDate({
+                        ...formData,
+                        pain_characteristics: formData.pain_characteristics.filter((item) => item !== "Empressao"),
+                      })
+                    }
+                  }}
                 />
-              </RadioGroup>
+                <label
+                  htmlFor="Empressao"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Em pressão
+                </label>
+              </div>
             </div>
 
             <div className="flex flex-col gap-1">
@@ -450,70 +611,205 @@ export default function Medicina() {
                 <label>Interfere:</label>
               </Text>
 
-              <RadioGroup
-                value={formData.painIntensity}
-                onChange={(event) =>
-                  setFormDate({
-                    ...formData,
-                    painIntensity: event.target.value,
-                  })
-                }
-                row
-              >
-                <FormControlLabel
-                  value="Ativ. diárias"
-                  control={<Radio />}
-                  label="Ativ. diárias"
+              <div className="flex items-center space-x-2 mb-2">
+                <Checkbox id="Ativ.diarias"
+                  checked={formData.pain_interference.includes("Ativ.diarias")} 
+                  onCheckedChange={(checked) => {
+                    if (checked) {
+                      setFormDate({
+                        ...formData,
+                        pain_interference: [...formData.pain_interference, "Ativ.diarias"],
+                      })
+                    } else {
+                      setFormDate({
+                        ...formData,
+                        pain_interference: formData.pain_interference.filter((item) => item !== "Ativ.diarias"),
+                      })
+                    }
+                  }}
                 />
-                <FormControlLabel
-                  value="Exercício"
-                  control={<Radio />}
-                  label="Exercício"
+                <label
+                  htmlFor="Ativ.diarias"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Ativ. diárias
+                </label>
+              </div>
+
+              <div className="flex items-center space-x-2 mb-2">
+                <Checkbox id="Exercicio" 
+                  checked={formData.pain_interference.includes("Exercicio")} 
+                  onCheckedChange={(checked) => {
+                    if (checked) {
+                      setFormDate({
+                        ...formData,
+                        pain_interference: [...formData.pain_interference, "Exercicio"],
+                      })
+                    } else {
+                      setFormDate({
+                        ...formData,
+                        pain_interference: formData.pain_interference.filter((item) => item !== "Exercicio"),
+                      })
+                    }
+                  }}
                 />
-                <FormControlLabel
-                  value="Humor"
-                  control={<Radio />}
-                  label="Humor"
+                <label
+                  htmlFor="Exercicio"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Exercício
+                </label>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <Checkbox id="Humor"
+                  checked={formData.pain_interference.includes("Humor")} 
+                  onCheckedChange={(checked) => {
+                    if (checked) {
+                      setFormDate({
+                        ...formData,
+                        pain_interference: [...formData.pain_interference, "Humor"],
+                      })
+                    } else {
+                      setFormDate({
+                        ...formData,
+                        pain_interference: formData.pain_interference.filter((item) => item !== "Humor"),
+                      })
+                    }
+                  }}
                 />
-              </RadioGroup>
+                <label
+                  htmlFor="Humor"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Humor
+                </label>
+              </div>
+
             </div>
 
             <div className="flex flex-col gap-1">
               <Text size="lg" asChild>
-                <label>Inspeção específica</label>
+                <label>Inspeção específica:</label>
               </Text>
 
-              <RadioGroup
-                value={formData.specificInspection}
-                onChange={(event) =>
+              <div className="flex items-center space-x-2 mb-2">
+                <Checkbox id="Edema" checked={formData.specific_inspection.includes("Edema")} 
+                  onCheckedChange={(checked) => {
+                    if (checked) {
+                      setFormDate({
+                        ...formData,
+                        specific_inspection: [...formData.specific_inspection, "Edema"],
+                      })
+                    } else {
+                      setFormDate({
+                        ...formData,
+                        specific_inspection: formData.specific_inspection.filter((item) => item !== "Edema"),
+                      })
+                    }
+                  }}
+                
+                />
+                <label
+                  htmlFor="Edema"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Edema
+                </label>
+              </div>
+
+              <div className="flex items-center space-x-2 mb-2">
+                <Checkbox id="Rubor"
+                  checked={formData.specific_inspection.includes("Rubor")} 
+                  onCheckedChange={(checked) => {
+                    if (checked) {
+                      setFormDate({
+                        ...formData,
+                        specific_inspection: [...formData.specific_inspection, "Rubor"],
+                      })
+                    } else {
+                      setFormDate({
+                        ...formData,
+                        specific_inspection: formData.specific_inspection.filter((item) => item !== "Rubor"),
+                      })
+                    }
+                  }}
+                />
+                <label
+                  htmlFor="Rubor"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Rubor
+                </label>
+              </div>
+
+              <div className="flex items-center space-x-2 mb-2">
+                <Checkbox id="Hematomas" 
+                  checked={formData.specific_inspection.includes("Hematomas")} 
+                  onCheckedChange={(checked) => {
+                    if (checked) {
+                      setFormDate({
+                        ...formData,
+                        specific_inspection: [...formData.specific_inspection, "Hematomas"],
+                      })
+                    } else {
+                      setFormDate({
+                        ...formData,
+                        specific_inspection: formData.specific_inspection.filter((item) => item !== "Hematomas"),
+                      })
+                    }
+                  }}
+                />
+                <label
+                  htmlFor="Hematomas"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Hematomas
+                </label>
+              </div>
+
+              
+              <div className="flex items-center space-x-2 mb-2">
+                <Checkbox id="Manchas"
+                  checked={formData.specific_inspection.includes("Manchas")} 
+                  onCheckedChange={(checked) => {
+                    if (checked) {
+                      setFormDate({
+                        ...formData,
+                        specific_inspection: [...formData.specific_inspection, "Manchas"],
+                      })
+                    } else {
+                      setFormDate({
+                        ...formData,
+                        specific_inspection: formData.specific_inspection.filter((item) => item !== "Manchas"),
+                      })
+                    }
+                  }}
+                
+                />
+                <label
+                  htmlFor="Manchas"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Manchas
+                </label>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <Text>Exercícios passados:</Text>
+              <TextField
+                label=""
+                variant="filled"
+                multiline
+                value={formData.pastExercises}
+                onChange={(e) =>
                   setFormDate({
                     ...formData,
-                    specificInspection: event.target.value,
+                    pastExercises: e.target.value,
                   })
                 }
-                row
-              >
-                <FormControlLabel
-                  value="Edema"
-                  control={<Radio />}
-                  label="Edema"
-                />
-                <FormControlLabel
-                  value="Rubor"
-                  control={<Radio />}
-                  label="Rubor"
-                />
-                <FormControlLabel
-                  value="Hematomas"
-                  control={<Radio />}
-                  label="Hematomas"
-                />
-                <FormControlLabel
-                  value="Manchas"
-                  control={<Radio />}
-                  label="Manchas"
-                />
-              </RadioGroup>
+              />
             </div>
 
             <div className="flex flex-col gap-1">
@@ -521,11 +817,11 @@ export default function Medicina() {
               <TextField
                 label=""
                 variant="filled"
-                value={formData.specificInspectionObs}
+                value={formData.specific_inspectionObs}
                 onChange={(e) =>
                   setFormDate({
                     ...formData,
-                    specificInspectionObs: e.target.value,
+                    specific_inspectionObs: e.target.value,
                   })
                 }
               />
@@ -560,8 +856,7 @@ function ProfileUser({ user, residents }: ProfileUserProps) {
       {user.socialName !== "" && (
         <span className="text-sm">Nome Social: {user.socialName}</span>
       )}
-      <span className="text-sm">CPF: {user.cpf}</span>
-      <span className="text-sm">RG: TODO:</span>
+
       <span className="text-sm">
         Data de Nascimento:{" "}
         {user.birthDate.toLocaleDateString("pt-BR", {
@@ -611,6 +906,7 @@ import {
   TextField,
 } from "@mui/material";
 import axios from "axios";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const frameworks = [
   {

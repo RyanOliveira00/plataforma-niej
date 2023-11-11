@@ -130,7 +130,7 @@ export function Sidebar() {
                         <Apple className="h-6 w-6" />
                         <Text className="ml-3 font-bold">Nutrição</Text>
                       </Link>
-
+{/* 
                       <Link
                         href="/fichas/medicina"
                         onClick={() => toggleSidebar()}
@@ -144,7 +144,7 @@ export function Sidebar() {
                       >
                         <Stethoscope className="h-6 w-6" />
                         <Text className="ml-3 font-bold">Medicina</Text>
-                      </Link>
+                      </Link> */}
 
                       <Link
                         href="/fichas/fisioterapia"

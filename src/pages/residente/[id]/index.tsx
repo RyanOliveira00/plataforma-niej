@@ -343,7 +343,7 @@ const Resident: NextPage = () => {
                   })
                 }
               />
-
+{/* 
               {resident.children > 0 && (
                 <>
                   {Array.from({ length: resident.children }, (_, index) => (
@@ -378,7 +378,7 @@ const Resident: NextPage = () => {
                     label="Residem juntos?"
                   />
                 </>
-              )}
+              )} */}
 
               <div className="flex flex-col gap-1">
                 <Text size="lg" asChild>
@@ -427,7 +427,7 @@ const Resident: NextPage = () => {
                   </MenuItem>
                 </Select>
               </div>
-
+{/* 
               <TextField
                 label="Plano de saúde? Se sim, qual?"
                 variant="filled"
@@ -435,8 +435,8 @@ const Resident: NextPage = () => {
                 onChange={(e) =>
                   setResident({ ...resident, healthPlan: e.target.value })
                 }
-              />
-
+              /> */}
+{/* 
               <TextField
                 label="Quais as suas condições de acesso à água tratada?"
                 variant="filled"
@@ -447,9 +447,9 @@ const Resident: NextPage = () => {
                     conditionsAccessTreatedWater: e.target.value,
                   })
                 }
-              />
+              /> */}
 
-              <FormControlLabel
+              {/* <FormControlLabel
                 control={
                   <Checkbox
                     color="success"
@@ -480,7 +480,7 @@ const Resident: NextPage = () => {
                 }
                 label="Tem acesso a rede de
                 esgoto?"
-              />
+              /> */}
             </>
           )}
 

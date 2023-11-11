@@ -158,14 +158,14 @@ export const Editor = ({
 
       // const title = parsedContent?.title ?? "Untitled" ?? "Untitled";
       // const content = parsedContent?.content ?? "";
-
+      console.log(editor.getHTML());
       onChange(editor.getHTML());
     },
-    content,
+    content: content ? content : "<h3>Enfermagem</h3><ul><li><p>Queixa: </p></li><li><p>Ao exame físico: </p></li><li><p>TA: </p></li><li><p>Temperatura:</p></li><li><p>SPO2:</p></li><li><p>Pulso:  a</p></li></ul><h3>Medicina</h3><ul><li><p>HDA</p></li><li><p>AMP: </p></li><li><p>Conduta:</p></li></ul>",
     autofocus: "end",
     editorProps: {
       attributes: {
-        class: "focus:outline-none prose prose-invert prose-headings:mt-0",
+        class: "prose prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-5 focus:outline-none",
       },
     },
   });
@@ -180,7 +180,8 @@ export const Editor = ({
           border: "1px solid purple",
           borderRadius: "2px",
           padding: "16px",
-          minHeight: "200px",
+          minHeight: "fitContent",
+          height: "fitContent"
         }}
       />
     </div>

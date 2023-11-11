@@ -120,7 +120,7 @@ export default function Medicina() {
 
   return (
     <RecordLayout>
-      <div className="my-4 flex w-full flex-col items-center justify-center gap-4 rounded-md bg-white px-4 py-16 shadow-2xl sm:w-[600px]">
+      <div className="my-4 flex w-full flex-col  min-h-screen  items-center justify-center gap-4 rounded-md bg-white px-4 py-16 shadow-2xl sm:w-[600px]">
         <h1 className="bold text-xl">Ficha em branco</h1>
 
         <div className="relative flex w-full flex-col gap-4 px-2 pt-8">
@@ -135,7 +135,7 @@ export default function Medicina() {
 
           <ProfileUser user={resident} residents={residents} />
 
-          <div className="flex w-full flex-col gap-7" onSubmit={handleSubmit}>
+          <div className="flex w-full h-full  min-h-full flex-col gap-7" onSubmit={handleSubmit}>
             <Editor
               content={formData.text}
               onChange={
@@ -173,8 +173,6 @@ function ProfileUser({ user, residents }: ProfileUserProps) {
       {user.socialName !== "" && (
         <span className="text-sm">Nome Social: {user.socialName}</span>
       )}
-      <span className="text-sm">CPF: {user.cpf}</span>
-      <span className="text-sm">RG: TODO:</span>
       <span className="text-sm">
         Data de Nascimento:{" "}
         {user.birthDate.toLocaleDateString("pt-BR", {

@@ -15,6 +15,11 @@ datasource db {
     // shadowDatabaseUrl = env(“SHADOW_DATABASE_URL”)
 }
 
+// datasource db {
+//     provider = "postgresql"
+//     url      = env("DATABASE_URL")
+// }
+
 model User {
     id String @id @default(cuid())
 
@@ -372,6 +377,13 @@ model physiotherapyAnamnesis {
     degreeOfStrength4 String?
     memberTested5     String?
     degreeOfStrength5 String?
+
+    specific_inspection  String[]
+    pain_characteristics String[]
+    pain_interference    String[]
+    pain_assessment      String[]
+
+    pastExercises String?
 
     generalObservation String?
 
