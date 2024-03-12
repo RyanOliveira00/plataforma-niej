@@ -83,6 +83,8 @@ model Resident {
     Nutritional_Form_GAIA_1  Nutritional_Form_GAIA_1[]
     physiotherapyAnamnesis   physiotherapyAnamnesis[]
     Blank_Sheet              Blank_Sheet[]
+    Psicologia_FORM_ESSE_RIO Psicologia_FORM_ESSE_RIO[]
+    Direito_FORM_ESSE_RIO    Direito_FORM_ESSE_RIO[]
 }
 
 model Blank_Sheet {
@@ -211,6 +213,50 @@ model Medical_Care_GAIA_1 {
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+
+    resident Resident @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Psicologia_FORM_ESSE_RIO {
+    id     String @id @default(cuid())
+    userId String
+
+    resident Resident @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Direito_FORM_ESSE_RIO {
+    id     String @id @default(cuid())
+    userId String
+     father_name        String?
+    father_age          String?
+    father_job          String?
+    father_scholarship  String?
+    mother_name         String?
+    mother_age          String?
+    mother_job          String?
+    mother_scholarship  String?
+    sons                String?
+    partner_age         String?
+    partner_scholarship String?
+    partner_name        String?
+    complaintMain       String?
+    choice_pain         String[]
+    extern_stress       String?
+    which_stress        String?
+    syntoms_signals     String?
+    event_childhood     String?
+    family              String?
+    other_observation   String?
+    psi_before          String?
+    desease             String?
+    use_medicine        String?
+    historical_family_desease   String?
+    family_substance_abuse  String?
+    family_suicide_history  String?
+    notes               String?
+    notes_2             String?
+
+
 
     resident Resident @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

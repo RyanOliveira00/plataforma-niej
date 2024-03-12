@@ -175,6 +175,36 @@ export function Sidebar() {
                         <HeartPulse className="h-6 w-6" />
                         <Text className="ml-3 font-bold">Odontologia</Text>
                       </Link>
+
+                      <Link
+                        href="/fichas/psicologia"
+                        onClick={() => toggleSidebar()}
+                        className={clsx(
+                          "flex items-center rounded-lg p-2 transition duration-75 hover:bg-purple-300",
+                          {
+                            "bg-purple-400":
+                              router.pathname === "/fichas/psicologia",
+                          },
+                        )}
+                      >
+                        <Apple className="h-6 w-6" />
+                        <Text className="ml-3 font-bold">Psicologia</Text>
+                      </Link>
+
+                      <Link
+                        href="/fichas/direito"
+                        onClick={() => toggleSidebar()}
+                        className={clsx(
+                          "flex items-center rounded-lg p-2 transition duration-75 hover:bg-purple-300",
+                          {
+                            "bg-purple-400":
+                              router.pathname === "/fichas/direito",
+                          },
+                        )}
+                      >
+                        <Apple className="h-6 w-6" />
+                        <Text className="ml-3 font-bold">Direito</Text>
+                      </Link>
                     </li>
                   </ul>
                 </CollapsiblePrimitive.Content>
