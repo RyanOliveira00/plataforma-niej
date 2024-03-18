@@ -217,14 +217,14 @@ model Medical_Care_GAIA_1 {
     resident Resident @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model Psicologia_FORM_ESSE_RIO {
+model Direito_FORM_ESSE_RIO {
     id     String @id @default(cuid())
     userId String
 
     resident Resident @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model Direito_FORM_ESSE_RIO {
+model Psicologia_FORM_ESSE_RIO {
     id     String @id @default(cuid())
     userId String
      father_name        String?
