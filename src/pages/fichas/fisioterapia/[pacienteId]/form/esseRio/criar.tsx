@@ -36,7 +36,7 @@ export default function Medicina() {
     painFrequency: "",
     painFeature: "",
     specific_inspection: [""],
-    specific_inspectionObs: "",
+    specificInspectionObs: "",
     pain_characteristics: [""],
     pastExercises: "",
     pain_interference: [""],
@@ -817,11 +817,11 @@ export default function Medicina() {
               <TextField
                 label=""
                 variant="filled"
-                value={formData.specific_inspectionObs}
+                value={formData.specificInspectionObs}
                 onChange={(e) =>
                   setFormDate({
                     ...formData,
-                    specific_inspectionObs: e.target.value,
+                    specificInspectionObs: e.target.value,
                   })
                 }
               />

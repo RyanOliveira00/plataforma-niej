@@ -81,7 +81,6 @@
     "initVersion": "7.20.2"
   },
   "prisma": {
-    "schema": "db/schema.prisma"
+    "schema": "prisma/schema.prisma"
   }
-  
 }

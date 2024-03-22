@@ -126,7 +126,7 @@ export default function Medicina() {
                       className="flex items-center gap-2 self-end text-sm text-gray-400 transition-colors hover:text-gray-600 focus:outline-none"
                       onClick={() =>
                         router.push(
-                          `/fichas/fisioterapia/${pacienteId}/form/esseRio/criar`,
+                          `/fichas/psicologia/${pacienteId}/form/esseRio/criar`,
                         )
                       }
                     >

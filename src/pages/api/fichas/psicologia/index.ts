@@ -14,7 +14,7 @@ export default async function handler(
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const body = req.body;
 
-    const user = await db.dental_Anamnesis_GAIA_1.upsert({
+    const user = await db.psicologia_FORM_ESSE_RIO.upsert({
       where: {
         id: body.id ? body.id : randomUUID(),
       },
